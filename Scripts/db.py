@@ -1,6 +1,7 @@
 import sqlite3
+import os
 
-conn = sqlite3.connect('database.db')
+conn = sqlite3.connect(os.getcwd()+'/database.db')
 
 cursor = conn.cursor()
 cursor.execute("""
