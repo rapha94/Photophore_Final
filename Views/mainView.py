@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
+import os
 
 
 class MainView(QMainWindow):
@@ -31,7 +32,7 @@ class MainView(QMainWindow):
 
         focusLabel = QLabel()
         focusLabel.setPixmap(
-            QPixmap('/home/Vendicare/Projects/PyCharm/Photophore/assets/blank.png').scaled(self.w * 40 / 100,
+            QPixmap(os.getcwd()+'/assets/blank.png').scaled(self.w * 40 / 100,
                                                                                            self.h * 40 / 100))
         boardLayout.addWidget(focusLabel)
 
@@ -114,11 +115,11 @@ class MainView(QMainWindow):
         gridLayout.setVerticalSpacing(self.w * 1 / 100)
         gridWidget.setLayout(gridLayout)
 
-        exitAct = QAction(QIcon('assets/exit.png'), 'Exit', self)
+        exitAct = QAction(QIcon(os.getcwd()+'/assets/exit.png'), 'Exit', self)
         exitAct.setStatusTip('Exit application')
         exitAct.triggered.connect(self.close)
 
-        uploadAct = QAction(QIcon('assets/upload.png'), 'Upload', self)
+        uploadAct = QAction(QIcon(os.getcwd()+'/assets/upload.png'), 'Upload', self)
         uploadAct.setStatusTip('Upload image')
         uploadAct.triggered.connect(self.openFileNamesDialog)
 

@@ -3,16 +3,16 @@ from keras.preprocessing.image import img_to_array
 from keras.applications.vgg16 import preprocess_input
 from keras.applications.vgg16 import decode_predictions
 from keras.models import model_from_json
-import numpy
+import numpy, os
 
-dogs = numpy.genfromtxt("assets/dogs.csv", delimiter=",", dtype="str")
-cats = numpy.genfromtxt("assets/cats.csv", delimiter=",", dtype="str")
+dogs = numpy.genfromtxt(os.getcwd()+"/assets/dogs.csv", delimiter=",", dtype="str")
+cats = numpy.genfromtxt(os.getcwd()+"assets/cats.csv", delimiter=",", dtype="str")
 
-json_file = open('Scripts/VGG16/vgg16.json', 'r')
+json_file = open(os.getcwd()+'/Scripts/VGG16/vgg16.json', 'r')
 loaded_model_json = json_file.read()
 json_file.close()
 model = model_from_json(loaded_model_json)
-model.load_weights("Scripts/VGG16/vgg16.h5")
+model.load_weights(os.getcwd()+"/Scripts/VGG16/vgg16.h5")
 
 
 def getTags(path):

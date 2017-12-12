@@ -49,7 +49,7 @@ class Model:
         list = []
         data = self.getElement(self.workingId)
         try:
-            conn = sqlite3.connect('database.db')
+            conn = sqlite3.connect(os.getcwd() + '/database.db')
             cursor = conn.cursor()
             cursor.execute(
                 """SELECT data_id1,data_id2 FROM distances WHERE data_id1=? OR data_id2=? ORDER BY value DESC LIMIT 10""",
@@ -67,7 +67,7 @@ class Model:
 
     def checkFile(self, path):
         try:
-            conn = sqlite3.connect('database.db')
+            conn = sqlite3.connect(os.getcwd() + '/database.db')
             cursor = conn.cursor()
             cursor.execute("""SELECT * FROM data WHERE path=?""", (path,))
             for row in cursor:
@@ -79,7 +79,7 @@ class Model:
             print("checkFile : " + str(e))
 
     def calculDistance(self, path):
-        conn = sqlite3.connect('database.db')
+        conn = sqlite3.connect(os.getcwd() + '/database.db')
         for element in self.elementList:
             if element.path != path:
                 cursor2 = conn.cursor()
@@ -106,7 +106,7 @@ class Model:
 
     def newData(self, path):
         try:
-            conn = sqlite3.connect('database.db')
+            conn = sqlite3.connect(os.getcwd() + '/database.db')
             cursor2 = conn.cursor()
             cursor2.execute("""SELECT MAX(rank) FROM data""")
             for row in cursor2:
@@ -125,7 +125,7 @@ class Model:
 
     def deleteData(self, id):
         try:
-            conn = sqlite3.connect('database.db')
+            conn = sqlite3.connect(os.getcwd() + '/database.db')
             cursor = conn.cursor()
             cursor.execute("""DELETE FROM data WHERE id=?""", (id,))
             cursor.execute("""DELETE FROM tags WHERE data_id=?""", (id,))
@@ -141,7 +141,7 @@ class Model:
 
     def newTag(self, text):
         try:
-            conn = sqlite3.connect('database.db')
+            conn = sqlite3.connect(os.getcwd() + '/database.db')
             cursor = conn.cursor()
             cursor.execute("""INSERT INTO mainTags(bool, text) VALUES(?, ?)""", (0, text))
             conn.commit()
@@ -155,7 +155,7 @@ class Model:
 
     def deleteTag(self, id):
         try:
-            conn = sqlite3.connect('database.db')
+            conn = sqlite3.connect(os.getcwd() + '/database.db')
             cursor = conn.cursor()
             cursor.execute("""SELECT text FROM mainTags WHERE id=?""", (id,))
             for row in cursor:
@@ -176,7 +176,7 @@ class Model:
 
     def checkData(self):
         try:
-            conn = sqlite3.connect('database.db')
+            conn = sqlite3.connect(os.getcwd() + '/database.db')
             cursor = conn.cursor()
             cursor.execute("""SELECT * FROM data""")
             for row in cursor:
@@ -199,7 +199,7 @@ class Model:
         del self.filterList[:]
         self.checkData()
         try:
-            conn = sqlite3.connect('database.db')
+            conn = sqlite3.connect(os.getcwd() + '/database.db')
             cursor = conn.cursor()
             cursor.execute("""SELECT * FROM data""")
             for row in cursor:
@@ -221,7 +221,7 @@ class Model:
 
     def save(self):
         try:
-            conn = sqlite3.connect('database.db')
+            conn = sqlite3.connect(os.getcwd() + '/database.db')
             cursor3 = conn.cursor()
             cursor3.execute("""DELETE FROM tags""")
             for element in self.elementList:
