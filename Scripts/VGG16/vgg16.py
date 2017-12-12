@@ -6,7 +6,7 @@ from keras.models import model_from_json
 import numpy, os
 
 dogs = numpy.genfromtxt(os.getcwd()+"/assets/dogs.csv", delimiter=",", dtype="str")
-cats = numpy.genfromtxt(os.getcwd()+"assets/cats.csv", delimiter=",", dtype="str")
+cats = numpy.genfromtxt(os.getcwd()+"/assets/cats.csv", delimiter=",", dtype="str")
 
 json_file = open(os.getcwd()+'/Scripts/VGG16/vgg16.json', 'r')
 loaded_model_json = json_file.read()
