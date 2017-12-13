@@ -15,6 +15,10 @@ model = model_from_json(loaded_model_json)
 model.load_weights(os.getcwd()+"/Scripts/VGG16/vgg16.h5")
 
 
+## Documentation checkBox function
+#  @param path path of the image
+#
+#   Method that returns vgg16 tags of the given image
 def getTags(path):
     image = load_img(path, target_size=(224, 224))
     image = img_to_array(image)

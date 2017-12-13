@@ -4,21 +4,45 @@ from Scripts import surf
 from Models import data, tagData
 from Scripts.VGG16 import vgg16
 
-
+## Documentation for Model class
+#
+#  Model class of MVC Model
 class Model:
+    ## Documentation constructor method
+    #  @param controller controller object
+    #
+    #   Method that initialize model object
     def __init__(self, controller):
+        ## @var controller
+        #  controller object
         self.controller = controller
 
+        ## @var elementList
+        #  list of images
         self.elementList = []
+        ## @var filterList
+        #  list of checked tags
         self.filterList = []
+        ## @var tagList
+        #  list of tags
         self.tagList = []
+        ## @var workingId
+        #  id of focused image
         self.workingId = -1
+        ## @var switched
+        #  switch mode
         self.switched = False
 
+        ## @var model
+        #  model object
         self.defaultElement = data.Data(-1, -1, os.getcwd() + "/assets/blank.png", [])
 
         self.load()
 
+    ## Documentation vgg16 method
+    #  @param path path to image to tag
+    #
+    #   Method that add vgg16 tags to the image
     def vgg16(self, path):
         print("run")
         for item in vgg16.getTags(path):
@@ -32,6 +56,10 @@ class Model:
         self.controller.view.update(self)
         print("done")
 
+    ## Documentation getElement method
+    #  @param id id of needed data
+    #
+    #   Method that return the data of id provided
     def getElement(self, id):
         if isinstance(id, int):
             if self.workingId == -1:
@@ -45,6 +73,9 @@ class Model:
                 if element.path == id:
                     return element
 
+    ## Documentation getDistanceList method
+    #
+    #   Method that return list of if of 10 closest images of focused image
     def getDistanceList(self):
         list = []
         data = self.getElement(self.workingId)
@@ -65,6 +96,10 @@ class Model:
             conn.close()
             return list
 
+    ## Documentation checkFile method
+    #  @param path path to image to check
+    #
+    #   Method that check if the image already exists in database
     def checkFile(self, path):
         try:
             conn = sqlite3.connect(os.getcwd() + '/database.db')
@@ -78,6 +113,10 @@ class Model:
         except Exception as e:
             print("checkFile : " + str(e))
 
+    ## Documentation calculDistance method
+    #  @param path path to image
+    #
+    #   Method that insert an image distances to all images in database
     def calculDistance(self, path):
         conn = sqlite3.connect(os.getcwd() + '/database.db')
         for element in self.elementList:
@@ -104,6 +143,10 @@ class Model:
                         conn.rollback()
         conn.close()
 
+    ## Documentation newData method
+    #  @param path path to image to add
+    #
+    #   Method that insert new image in database
     def newData(self, path):
         try:
             conn = sqlite3.connect(os.getcwd() + '/database.db')
@@ -123,6 +166,10 @@ class Model:
         finally:
             conn.close()
 
+    ## Documentation deleteData method
+    #  @param id id of image to delete
+    #
+    #   Method that delete the image from database
     def deleteData(self, id):
         try:
             conn = sqlite3.connect(os.getcwd() + '/database.db')
@@ -139,6 +186,10 @@ class Model:
             self.save()
             self.load()
 
+    ## Documentation newTag method
+    #  @param id name of tag
+    #
+    #   Method that insert new tag in database
     def newTag(self, text):
         try:
             conn = sqlite3.connect(os.getcwd() + '/database.db')
@@ -153,6 +204,10 @@ class Model:
             self.save()
             self.load()
 
+    ## Documentation deleteTag method
+    #  @param id id of tag to delete
+    #
+    #   Method that delete tag from database
     def deleteTag(self, id):
         try:
             conn = sqlite3.connect(os.getcwd() + '/database.db')
@@ -174,6 +229,9 @@ class Model:
             self.save()
             self.load()
 
+    ## Documentation checkData method
+    #
+    #   Method that delete all image with broken paths
     def checkData(self):
         try:
             conn = sqlite3.connect(os.getcwd() + '/database.db')
@@ -193,6 +251,9 @@ class Model:
         finally:
             conn.close()
 
+    ## Documentation load method
+    #
+    #   Method that get all data from database to load it in model lists
     def load(self):
         del self.elementList[:]
         del self.tagList[:]
@@ -219,6 +280,9 @@ class Model:
         finally:
             conn.close()
 
+    ## Documentation getElement method
+    #
+    #   Method that save all data in database
     def save(self):
         try:
             conn = sqlite3.connect(os.getcwd() + '/database.db')

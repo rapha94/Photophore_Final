@@ -4,20 +4,39 @@ from PyQt5.QtCore import *
 import os
 
 
+## Documentation for MainView class
+#
+#  heritated from QMainWindow
 class MainView(QMainWindow):
+    ## Documentation constructor method
+    #  @param controller controller object
+    #
+    #   Method that initialize TagData object
     def __init__(self, controller):
         super().__init__()
+        ## @var controller
+        #  controller object
         self.controller = controller
-
+        ## @var w
+        #  width of screen
         self.w = QApplication.desktop().width()
+        ## @var h
+        #  height of screen
         self.h = QApplication.desktop().height()
+
         self.initUI()
         self.setWindowTitle('Main window')
         self.showMaximized()
 
+    ## Documentation closeEvent method
+    #
+    #   Redefinition of closeEvent method, save data before exit
     def closeEvent(self, QCloseEvent):
         self.controller.model.save()
 
+    ## Documentation initUI method
+    #
+    #   Initialize the main window and graphics items
     def initUI(self):
         widget = QWidget()
         layout = QHBoxLayout()
@@ -32,8 +51,8 @@ class MainView(QMainWindow):
 
         focusLabel = QLabel()
         focusLabel.setPixmap(
-            QPixmap(os.getcwd()+'/assets/blank.png').scaled(self.w * 40 / 100,
-                                                                                           self.h * 40 / 100))
+            QPixmap(os.getcwd() + '/assets/blank.png').scaled(self.w * 40 / 100,
+                                                              self.h * 40 / 100))
         boardLayout.addWidget(focusLabel)
 
         tagWidget = QWidget()
@@ -115,11 +134,11 @@ class MainView(QMainWindow):
         gridLayout.setVerticalSpacing(self.w * 1 / 100)
         gridWidget.setLayout(gridLayout)
 
-        exitAct = QAction(QIcon(os.getcwd()+'/assets/exit.png'), 'Exit', self)
+        exitAct = QAction(QIcon(os.getcwd() + '/assets/exit.png'), 'Exit', self)
         exitAct.setStatusTip('Exit application')
         exitAct.triggered.connect(self.close)
 
-        uploadAct = QAction(QIcon(os.getcwd()+'/assets/upload.png'), 'Upload', self)
+        uploadAct = QAction(QIcon(os.getcwd() + '/assets/upload.png'), 'Upload', self)
         uploadAct.setStatusTip('Upload image')
         uploadAct.triggered.connect(self.openFileNamesDialog)
 
@@ -135,6 +154,9 @@ class MainView(QMainWindow):
         toolbar = self.addToolBar('Upload')
         toolbar.addAction(uploadAct)
 
+    ## Documentation openFileNamesDialog method
+    #
+    #   Action after clicking on upload button, open a window to choose new image to add
     def openFileNamesDialog(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog

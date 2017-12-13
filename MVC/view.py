@@ -2,8 +2,14 @@ import functools
 from math import *
 from Views import mainView, labelView, tagView
 
-
+## Documentation for View class
+#
+#  View class of MVC Model
 class View:
+    ## Documentation constructor method
+    #  @param controller controller object
+    #
+    #   Method that initialize view object and connect graphics to their actions
     def __init__(self, controller):
         self.controller = controller
 
@@ -35,11 +41,19 @@ class View:
         self.mainView.centralWidget().layout().itemAt(1).widget().layout().itemAt(0).widget().layout().itemAt(
             1).widget().layout().itemAt(2).widget().clicked.connect(self.controller.switch)
 
+    ## Documentation update method
+    #  @param model model object
+    #
+    #   Method that update all graphics objects
     def update(self, model):
         self.updateImages(model)
         self.updateTags(model)
         self.updateBoard(model)
 
+    ## Documentation updateBoard method
+    #  @param model model object
+    #
+    #   Method that update left part of window (focused image)
     def updateBoard(self, model):
         element = model.getElement(model.workingId)
         self.mainView.centralWidget().layout().itemAt(0).widget().layout().itemAt(1).widget().layout().itemAt(
@@ -55,6 +69,10 @@ class View:
             0).widget().setText(
             "Tags : " + ', '.join(element.tags))
 
+    ## Documentation updateImages method
+    #  @param model model object
+    #
+    #   Method that update right part of window (list of images)
     def updateImages(self, model):
         for i in reversed(range(self.mainView.centralWidget().layout().itemAt(1).widget().layout().itemAt(
                 1).widget().widget().layout().count())):
@@ -77,6 +95,10 @@ class View:
                         1).widget().widget().layout().count() / 3), self.mainView.centralWidget().layout().itemAt(
                     1).widget().layout().itemAt(1).widget().widget().layout().count() % 3)
 
+    ## Documentation updateTags method
+    #  @param model model object
+    #
+    #   Method that update center part of window (tags list)
     def updateTags(self, model):
         for i in reversed(range(
                 self.mainView.centralWidget().layout().itemAt(1).widget().layout().itemAt(0).widget().layout().itemAt(

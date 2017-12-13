@@ -1,5 +1,10 @@
 import cv2
 
+## Documentation checkBox function
+#  @param path1 path of the first image
+#  @param path2 path of the second image
+#
+#   Method that returns distance between given images
 def distance(path1,path2):
     img1 = cv2.imread(path1, 0)
     img2 = cv2.imread(path2, 0)
