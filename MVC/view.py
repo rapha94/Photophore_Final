@@ -1,6 +1,8 @@
 import functools
 from math import *
+from PyQt5.QtCore import *
 from Views import mainView, labelView, tagView
+
 
 ## Documentation for View class
 #
@@ -19,25 +21,25 @@ class View:
             self.controller.delete)
         self.mainView.centralWidget().layout().itemAt(0).widget().layout().itemAt(1).widget().layout().itemAt(
             1).widget().layout().itemAt(1).widget().clicked.connect(functools.partial(self.controller.addTag,
-                                                                    self.mainView.centralWidget().layout().itemAt(
-                                                                        0).widget().layout().itemAt(
-                                                                        1).widget().layout().itemAt(
-                                                                        1).widget().layout().itemAt(
-                                                                        0).widget()))
+                                                                                      self.mainView.centralWidget().layout().itemAt(
+                                                                                          0).widget().layout().itemAt(
+                                                                                          1).widget().layout().itemAt(
+                                                                                          1).widget().layout().itemAt(
+                                                                                          0).widget()))
         self.mainView.centralWidget().layout().itemAt(0).widget().layout().itemAt(1).widget().layout().itemAt(
             1).widget().layout().itemAt(3).widget().clicked.connect(functools.partial(self.controller.deleteTag,
-                                                                    self.mainView.centralWidget().layout().itemAt(
-                                                                        0).widget().layout().itemAt(
-                                                                        1).widget().layout().itemAt(
-                                                                        1).widget().layout().itemAt(
-                                                                        2).widget()))
+                                                                                      self.mainView.centralWidget().layout().itemAt(
+                                                                                          0).widget().layout().itemAt(
+                                                                                          1).widget().layout().itemAt(
+                                                                                          1).widget().layout().itemAt(
+                                                                                          2).widget()))
         self.mainView.centralWidget().layout().itemAt(1).widget().layout().itemAt(0).widget().layout().itemAt(
             1).widget().layout().itemAt(1).widget().clicked.connect(functools.partial(self.controller.addMainTag,
-                                                                    self.mainView.centralWidget().layout().itemAt(
-                                                                        1).widget().layout().itemAt(
-                                                                        0).widget().layout().itemAt(
-                                                                        1).widget().layout().itemAt(
-                                                                        0).widget()))
+                                                                                      self.mainView.centralWidget().layout().itemAt(
+                                                                                          1).widget().layout().itemAt(
+                                                                                          0).widget().layout().itemAt(
+                                                                                          1).widget().layout().itemAt(
+                                                                                          0).widget()))
         self.mainView.centralWidget().layout().itemAt(1).widget().layout().itemAt(0).widget().layout().itemAt(
             1).widget().layout().itemAt(2).widget().clicked.connect(self.controller.switch)
 
@@ -64,7 +66,9 @@ class View:
             self.mainView.centralWidget().layout().itemAt(0).widget().layout().itemAt(1).widget().layout().itemAt(
                 1).widget().layout().itemAt(2).widget().addItem(tag)
         self.mainView.centralWidget().layout().itemAt(0).widget().layout().itemAt(0).widget().setPixmap(
-            element.pixmap.scaled(800, 500))
+            element.pixmap.scaled(self.mainView.w * 40 / 100,
+                                  self.mainView.h * 40 / 100, Qt.KeepAspectRatio))
+        self.mainView.centralWidget().layout().itemAt(0).widget().layout().itemAt(0).widget().setMaximumWidth(self.mainView.w * 40 / 100)
         self.mainView.centralWidget().layout().itemAt(0).widget().layout().itemAt(1).widget().layout().itemAt(
             0).widget().setText(
             "Tags : " + ', '.join(element.tags))
@@ -79,9 +83,9 @@ class View:
             self.mainView.centralWidget().layout().itemAt(1).widget().layout().itemAt(
                 1).widget().widget().layout().itemAt(i).widget().setParent(
                 None)
-        list = sorted(model.elementList,key=lambda x: x.rank, reverse=True)
+        list = sorted(model.elementList, key=lambda x: x.rank, reverse=True)
         if model.workingId != -1 and model.switched:
-            list = sorted(model.getDistanceList(),key=lambda x: x.rank, reverse=True)
+            list = sorted(model.getDistanceList(), key=lambda x: x.rank, reverse=True)
         for element in list:
             if (set(element.tags) & set(model.filterList)) or not model.filterList:
                 img = labelView.Label(element, self)
