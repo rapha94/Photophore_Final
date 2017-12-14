@@ -11,8 +11,8 @@ Protocole d'installation
 -> Avoir python3
 -> Se placer dans le dossier du projet
 -> pip3 install -r requirements.txt
--> Telecharger le fichier vgg16_weights.h5 sur cette page https://gist.github.com/baraldilorenzo/07d7802847aaad0a35d3
--> Renommer le fichier en vgg16.h5 et le placer dans /Scripts/VGG16
+-> Telecharger le fichier vgg16.h5 sur cette page
+-> Placer le fichier dans /Scripts/VGG16
 -> python3 /Scripts/db.py
 
 
