@@ -58,7 +58,7 @@ class Controller:
     ## Documentation addData method
     #  @param paths the list of paths to all the images to add
     #
-    #   Method which add new images to the database
+    #   Method that change the display mode
     def switch(self):
         if self.model.workingId != 1:
             self.model.switched = not self.model.switched
