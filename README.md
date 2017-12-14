@@ -11,7 +11,7 @@ Protocole d'installation
 -> Avoir python3
 -> Se placer dans le dossier du projet
 -> pip3 install -r requirements.txt
--> Telecharger le fichier vgg16.h5 sur cette page
+-> T?l?charger le fichier vgg16.h5 avec ce lien : https://drive.google.com/open?id=1jcPHCuBIMVppU6Y9advt1Cjc6Bn8AdA1
 -> Placer le fichier dans /Scripts/VGG16
 -> python3 /Scripts/db.py
 
