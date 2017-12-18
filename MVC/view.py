@@ -85,7 +85,9 @@ class View:
                 None)
         list = sorted(model.elementList, key=lambda x: x.rank, reverse=True)
         if model.workingId != -1 and model.switched:
-            list = sorted(model.getDistanceList(), key=lambda x: x.rank, reverse=True)
+            list = model.getDistanceList()
+            list.append(model.getElement(model.workingId))
+            list = sorted(list, key=lambda x: x.rank, reverse=True)
         for element in list:
             if (set(element.tags) & set(model.filterList)) or not model.filterList:
                 img = labelView.Label(element, self)
