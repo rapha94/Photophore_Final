@@ -93,7 +93,7 @@ sos==3.5
 SSSDConfig==1.16.0
 systemd-python==234
 tables==3.3.0
-tensorflow==1.4.0
+tensorflow==2.5.0
 tensorflow-tensorboard==0.4.0rc2
 texttable==0.9.1
 urllib3==1.20
