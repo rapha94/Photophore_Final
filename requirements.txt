@@ -96,7 +96,7 @@ tables==3.3.0
 tensorflow==1.4.0
 tensorflow-tensorboard==0.4.0rc2
 texttable==0.9.1
-urllib3==1.20
+urllib3==1.26.5
 websocket-client==0.40.0
 Werkzeug==0.12.2
 wrapt==1.10.10
